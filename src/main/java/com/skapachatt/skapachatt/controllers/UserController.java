@@ -1,5 +1,7 @@
 package com.skapachatt.skapachatt.controllers;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +24,11 @@ public class UserController {
     @GetMapping()
     public String getRoot() {
         return "hej";
+    }
+
+    @GetMapping("/users")
+    public List<User> getUsers() {
+        return userService.getUsers();
     }
 
     @PostMapping("/user")
