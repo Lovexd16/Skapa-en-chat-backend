@@ -2,6 +2,8 @@ package com.skapachatt.skapachatt.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,8 +34,14 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public User addUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public ResponseEntity<?> addUser(@RequestBody User user) {
+        try {
+            User addedUser = userService.addUser(user);
+            return ResponseEntity.ok(addedUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Användarnamnet är upptaget.");
+        }
     }
 
 }
